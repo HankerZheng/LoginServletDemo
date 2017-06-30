@@ -25,7 +25,12 @@
     <h1>Emp Age: </h1>
     <input type="number" name="age" required="required"/>
     <h1>Dept ID: </h1>
-    <input type="number" name="dept_id" required="required"/><br>
+    <select name="dept_id">
+        <option value="default" disabled selected>select a department</option>
+        <c:forEach var="dept" items="${applicationScope['deptList']}">
+            <option value="${dept.getDeptId()}">${dept.getDeptName()}</option>
+        </c:forEach>
+    </select>
     <input type="submit"/>
 </form>
 <a href="/home">cancel</a>

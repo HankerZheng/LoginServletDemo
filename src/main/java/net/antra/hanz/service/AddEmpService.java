@@ -53,7 +53,7 @@ public class AddEmpService extends AbstractService<Employee>{
                 Statement stmt = conn.createStatement();
         ) {
             System.out.println("Successfully connected to Database");
-            String insertSQL = String.format("insert into employee values (%d, %s, %s, %d, %d)",
+            String insertSQL = String.format("insert into employee values (%d, '%s', '%s', %d, %d)",
                     emp.getEmpId(),
                     emp.getFirstName(),
                     emp.getLastName(),
