@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>net.antra.hanz</groupId>
+    <artifactId>LoginServletDemo</artifactId>
+    <version>1.0.0</version>
+
+    <!-- indicate the final packaged file format is war or jar -->
+    <packaging>war</packaging>
+
+    <dependencies>
+        <!-- This is the Servlet API dependency, version is 3.1.0 -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+        <!-- This is the JSTL dependency-->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
+        <!-- This is the mySQL connector driver -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.31</version>
+        </dependency></dependencies>
+    <build>
+        <!-- This is the plugin configurations. Plugins are used by maven it self to do something extra, e.g packaing/testing/deploy -->
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>1.8</source>  <!-- indicates the JDK version -->
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>  <!-- we don't need a web.xml file -->
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
