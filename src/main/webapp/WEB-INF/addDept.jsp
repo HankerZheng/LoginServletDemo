@@ -12,18 +12,38 @@
     <title>Add Departments, ${user.getUsername()}</title>
 </head>
 <body>
-<c:if test="${deptError}">
-    <p style="color:red">Invalid Input, Please Try Again!!</p>
-</c:if>
-<form method="post">
-    <h1>Dept ID: </h1>
-    <input type="text" name="dept_id" required="required"/>
-    <h1>Dept Name: </h1>
-    <input type="text" name="dept_name" required="required"/>
-    <h1>Dept Email: </h1>
-    <input type="email" name="dept_email" required="required"/><br>
-    <input type="submit"/>
-</form>
-<a href="/home">cancel</a>
+    <h1 align="center">Welcome, ${user.getUsername()}</h1>
+    <h3 align="center">
+        <a href="/logout">Logout</a>
+    </h3>
+
+    <c:if test="${deptError}">
+        <p style="color:red">Invalid Input, Please Try Again!!</p>
+    </c:if>
+
+    <form method="post">
+        <h4>Dept Name: </h4>
+        <input type="text" name="dept_name" required="required"/>
+        <h4>Dept Email: </h4>
+        <input type="email" name="dept_email" required="required"/><br>
+        <input type="submit"/>
+        <a href="/home">cancel</a>
+    </form>
+
+    <h2 align="center">Department List</h2>
+    <table style="width: 80%" align="center">
+        <tr>
+            <th align="center">deptId</th>
+            <th align="center">deptName</th>
+            <th align="center">deptEmail</th>
+        </tr>
+        <c:forEach var="dept" items="${applicationScope['deptList']}">
+            <tr>
+                <td align="center"><c:out value="${dept.getDeptId()}"/></td>
+                <td align="center"><c:out value="${dept.getDeptName()}"/> </td>
+                <td align="center"><c:out value="${dept.getDeptEmail()}"/> </td>
+            </tr>
+        </c:forEach>
+    </table>
 </body>
 </html>

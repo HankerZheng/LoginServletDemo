@@ -12,13 +12,18 @@
     <title>Welcome, ${user.getUsername()}</title>
 </head>
 <body>
-    <h1>Welcome, ${user.getUsername()}</h1>
-    <a href="/logout"><h3>Logout</h3></a>
-    <a href="/addemp"><h3>Add Employees</h3></a>
-    <a href="/adddept"><h3>Add Department</h3></a>
-
-    <h2>Employee List</h2>
-    <table style="width:80%">
+    <h1 align="center">Welcome, ${user.getUsername()}</h1>
+    <h3 align="center">
+        <a href="/logout">Logout</a>
+    </h3>
+    <h3 align="center">
+        <a href="/addemp"><h3>Add Employees</h3></a>
+    </h3>
+    <h3 align="center">
+        <a href="/adddept"><h3>Add Department</h3></a>
+    </h3>
+    <h2 align="center">Employee List</h2>
+    <table style="width:80%" align="center">
         <tr>
             <th align="center">empId</th>
             <th align="center">firstName</th>
@@ -37,8 +42,8 @@
         </c:forEach>
     </table>
 
-    <h2>Department List</h2>
-    <table style="width: 80%">
+    <h2 align="center">Department List</h2>
+    <table style="width: 80%" align="center">
         <tr>
             <th align="center">deptId</th>
             <th align="center">deptName</th>

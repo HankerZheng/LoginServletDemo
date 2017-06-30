@@ -16,14 +16,12 @@ import java.util.WeakHashMap;
  */
 public class AddEmpService extends AbstractService<Employee>{
 
-    private String empId;
     private String firstName;
     private String lastName;
     private String age;
     private String deptId;
 
-    public AddEmpService(String empId, String firstName, String lastName, String age, String deptId) {
-        this.empId = empId;
+    public AddEmpService(String firstName, String lastName, String age, String deptId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
@@ -35,10 +33,9 @@ public class AddEmpService extends AbstractService<Employee>{
     public Employee service() {
         Employee emp;
         try {
-            Integer parsedEmpId = Integer.parseInt(empId);
             Integer parsedDeptId = Integer.parseInt(deptId);
             Integer parsedAge = Integer.parseInt(age);
-            emp = new Employee(parsedEmpId, firstName, lastName, parsedAge, parsedDeptId);
+            emp = new Employee(-1, firstName, lastName, parsedAge, parsedDeptId);
             insert(emp);
         } catch (NumberFormatException|SQLException e) {
             e.printStackTrace();
@@ -53,8 +50,8 @@ public class AddEmpService extends AbstractService<Employee>{
                 Statement stmt = conn.createStatement();
         ) {
             System.out.println("Successfully connected to Database");
-            String insertSQL = String.format("insert into employee values (%d, '%s', '%s', %d, %d)",
-                    emp.getEmpId(),
+            String insertSQL = String.format(
+                    "insert into employee(first_name, last_name, age, dept_id) values ('%s', '%s', %d, %d)",
                     emp.getFirstName(),
                     emp.getLastName(),
                     emp.getAge(),

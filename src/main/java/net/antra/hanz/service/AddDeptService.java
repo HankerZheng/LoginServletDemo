@@ -13,12 +13,10 @@ import java.text.ParseException;
  */
 public class AddDeptService extends AbstractService<Dept>{
 
-    private String deptId;
     private String deptName;
     private String deptEmail;
 
-    public AddDeptService(String deptId, String deptName, String deptEmail) {
-        this.deptId = deptId;
+    public AddDeptService(String deptName, String deptEmail) {
         this.deptName = deptName;
         this.deptEmail = deptEmail;
     }
@@ -28,10 +26,9 @@ public class AddDeptService extends AbstractService<Dept>{
     public Dept service() {
         Dept dept;
         try {
-            Integer parsedDeptId = Integer.parseInt(deptId);
-            dept = new Dept(parsedDeptId, deptName, deptEmail);
+            dept = new Dept(-1, deptName, deptEmail);
             insert(dept);
-        } catch (NumberFormatException|SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
@@ -43,9 +40,7 @@ public class AddDeptService extends AbstractService<Dept>{
                 Connection conn = JDBConnect.getConnection();
                 Statement stmt = conn.createStatement();
         ) {
-            System.out.println("Successfully connected to Database");
-            String insertSQL = String.format("insert into department values (%d, '%s', '%s')",
-                    dept.getDeptId(),
+            String insertSQL = String.format("insert into department(dept_name, dept_email) values ('%s', '%s')",
                     dept.getDeptName(),
                     dept.getDeptEmail());
             stmt.executeUpdate(insertSQL);
