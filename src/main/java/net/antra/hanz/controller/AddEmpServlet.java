@@ -5,6 +5,7 @@ import net.antra.hanz.service.AddEmpService;
 import net.antra.hanz.service.FetchEmpService;
 import net.antra.hanz.service.InvalidLoginStatusService;
 
+import javax.persistence.PersistenceException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,13 +34,14 @@ public class AddEmpServlet extends HttpServlet {
         String deptId = request.getParameter("dept_id");
         // Create a new employee based on user input
         AddEmpService aes = new AddEmpService(firstName, lastName, age, deptId);
-        Employee emp = aes.service();
-        if (emp != null) {
+        try {
+            aes.service();
             request.getSession().setAttribute("empError", false);
-            response.sendRedirect("/addemp");
-        } else {
-            request.getSession().setAttribute("empError", true);
             request.getRequestDispatcher("/WEB-INF/addEmp.jsp").forward(request, response);
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+            request.getSession().setAttribute("empError", true);
+            response.sendRedirect("/addemp");
         }
     }
 
@@ -51,8 +53,12 @@ public class AddEmpServlet extends HttpServlet {
             return;
         }
         // Fetch employee list
-        List<Employee> empList = (new FetchEmpService()).service();
-        getServletContext().setAttribute("empList", empList);
+        try {
+            List<Employee> empList = (new FetchEmpService()).service();
+            getServletContext().setAttribute("empList", empList);
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
         request.getRequestDispatcher("/WEB-INF/addEmp.jsp").forward(request, response);
     }
 }

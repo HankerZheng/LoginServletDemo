@@ -1,5 +1,8 @@
 package net.antra.hanz.service;
 
+import org.hibernate.exception.DataException;
+
+import javax.persistence.PersistenceException;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -9,5 +12,5 @@ import javax.servlet.http.HttpServletRequest;
  */
 public abstract class AbstractService<E> {
 
-    public abstract E service();
+    public abstract E service() throws PersistenceException;
 }

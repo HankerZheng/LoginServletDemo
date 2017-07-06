@@ -6,6 +6,7 @@ import net.antra.hanz.service.FetchDeptService;
 import net.antra.hanz.service.FetchEmpService;
 import net.antra.hanz.service.InvalidLoginStatusService;
 
+import javax.persistence.PersistenceException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,11 +34,20 @@ public class HomeServlet extends HttpServlet {
             response.sendRedirect("/login");
             return;
         }
-
-        List<Employee> empList = (new FetchEmpService()).service();
-        List<Dept> deptList = (new FetchDeptService()).service();
-        getServletContext().setAttribute("empList", empList);
-        getServletContext().setAttribute("deptList", deptList);
+        // get employee List
+        try {
+            List<Employee> empList = (new FetchEmpService()).service();
+            getServletContext().setAttribute("empList", empList);
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
+        // get department List
+        try {
+            List<Dept> deptList = (new FetchDeptService()).service();
+            getServletContext().setAttribute("deptList", deptList);
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
 
         request.getRequestDispatcher("/WEB-INF/home.jsp").forward(request,response);
     }

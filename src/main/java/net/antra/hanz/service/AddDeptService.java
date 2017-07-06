@@ -5,6 +5,7 @@ import net.antra.hanz.util.EMFUtil;
 import net.antra.hanz.util.JDBConnect;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -24,7 +25,7 @@ public class AddDeptService extends AbstractService<Dept>{
 
 
     @Override
-    public Dept service() {
+    public Dept service() throws PersistenceException{
         EntityManager em = EMFUtil.getEMF().createEntityManager();
         em.getTransaction().begin();
 

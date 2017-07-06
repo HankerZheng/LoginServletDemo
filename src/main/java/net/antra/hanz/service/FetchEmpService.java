@@ -7,6 +7,7 @@ import net.antra.hanz.util.EMFUtil;
 import net.antra.hanz.util.JDBConnect;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,7 +20,7 @@ import java.util.List;
  */
 public class FetchEmpService extends AbstractService<List<Employee>>{
     @Override
-    public List<Employee> service() {
+    public List<Employee> service() throws PersistenceException{
         EntityManager em = EMFUtil.getEMF().createEntityManager();
         String jpql = "select c from Employee c";
         List<Employee> empList = em.createQuery(jpql).getResultList();

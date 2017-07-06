@@ -6,6 +6,7 @@ import net.antra.hanz.util.EMFUtil;
 import net.antra.hanz.util.JDBConnect;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -33,7 +34,7 @@ public class AddEmpService extends AbstractService<Employee>{
 
 
     @Override
-    public Employee service() {
+    public Employee service() throws PersistenceException{
         Integer parsedAge, parsedDeptId;
         try {
             parsedDeptId = Integer.parseInt(deptId);

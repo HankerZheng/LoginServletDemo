@@ -3,6 +3,7 @@ package net.antra.hanz.controller;
 import net.antra.hanz.model.Dept;
 import net.antra.hanz.service.*;
 
+import javax.persistence.PersistenceException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,13 +29,14 @@ public class AddDeptServlet extends HttpServlet {
         String deptEmail = request.getParameter("dept_email");
         // Create a new dept based on the user input
         AddDeptService ads = new AddDeptService(deptName, deptEmail);
-        Dept dept = ads.service();
-        if (dept != null) {
+        try {
+            ads.service();
             request.getSession().setAttribute("deptError", false);
-            response.sendRedirect("/adddept");
-        } else {
-            request.getSession().setAttribute("deptError", true);
             request.getRequestDispatcher("/WEB-INF/addDept.jsp").forward(request, response);
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+            request.getSession().setAttribute("deptError", true);
+            response.sendRedirect("/adddept");
         }
     }
 
@@ -46,8 +48,12 @@ public class AddDeptServlet extends HttpServlet {
             return;
         }
         // Fetch department list
-        List<Dept> deptList = (new FetchDeptService()).service();
-        getServletContext().setAttribute("deptList", deptList);
+        try {
+            List<Dept> deptList = (new FetchDeptService()).service();
+            getServletContext().setAttribute("deptList", deptList);
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
         request.getRequestDispatcher("/WEB-INF/addDept.jsp").forward(request, response);
     }
 }
