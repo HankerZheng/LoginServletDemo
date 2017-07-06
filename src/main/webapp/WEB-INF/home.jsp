@@ -1,4 +1,4 @@
-<%@ page import="net.antra.hanz.model.User" %><%--
+<%@ page import="net.antra.hanz.util.User" %><%--
   Created by IntelliJ IDEA.
   User: hanzheng
   Date: 6/24/17

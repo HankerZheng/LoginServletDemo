@@ -1,7 +1,5 @@
-package net.antra.hanz.model;
+package net.antra.hanz.util;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by hanzheng on 6/24/17.

@@ -1,6 +1,6 @@
 package net.antra.hanz.service;
 
-import net.antra.hanz.model.User;
+import net.antra.hanz.util.User;
 
 import javax.servlet.http.HttpServletRequest;
 

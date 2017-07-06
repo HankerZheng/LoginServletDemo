@@ -1,6 +1,6 @@
 package net.antra.hanz.controller;
 
-import net.antra.hanz.model.User;
+import net.antra.hanz.util.User;
 import net.antra.hanz.service.LoginCheckService;
 
 import javax.servlet.ServletException;

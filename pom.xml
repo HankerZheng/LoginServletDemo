@@ -12,6 +12,15 @@
     <packaging>war</packaging>
 
     <dependencies>
+
+        <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.2.10.Final</version>
+        </dependency>
+
+
         <!-- This is the Servlet API dependency, version is 3.1.0 -->
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -29,7 +38,8 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.31</version>
-        </dependency></dependencies>
+        </dependency>
+    </dependencies>
     <build>
         <!-- This is the plugin configurations. Plugins are used by maven it self to do something extra, e.g packaing/testing/deploy -->
         <plugins>

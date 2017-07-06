@@ -1,8 +1,11 @@
 package net.antra.hanz.service;
 
+import net.antra.hanz.model.Dept;
 import net.antra.hanz.model.Employee;
+import net.antra.hanz.util.EMFUtil;
 import net.antra.hanz.util.JDBConnect;
 
+import javax.persistence.EntityManager;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -31,23 +34,39 @@ public class AddEmpService extends AbstractService<Employee>{
 
     @Override
     public Employee service() {
-        Employee emp;
+        Integer parsedAge, parsedDeptId;
         try {
-            Integer parsedDeptId = Integer.parseInt(deptId);
-            Integer parsedAge = Integer.parseInt(age);
-            emp = new Employee(-1, firstName, lastName, parsedAge, parsedDeptId);
-            insert(emp);
-        } catch (NumberFormatException|SQLException e) {
+            parsedDeptId = Integer.parseInt(deptId);
+            parsedAge = Integer.parseInt(age);
+        } catch (NumberFormatException e) {
             e.printStackTrace();
             return null;
         }
-        return emp;
+        EntityManager em = EMFUtil.getEMF().createEntityManager();
+        em.getTransaction().begin();
+
+        Employee employee = new Employee();
+        employee.setFirstName(firstName);
+        employee.setLastName(lastName);
+        employee.setAge(parsedAge);
+        Dept department = em.find(Dept.class, parsedDeptId);
+        employee.setDept(department);
+        employee.setDeptId(department.getDeptId());
+
+        em.persist(employee);
+        em.flush();
+        em.getTransaction().commit();
+        em.close();
+
+        return employee;
+
     }
 
+    @Deprecated
     private void insert(Employee emp) throws SQLException {
         try (
                 Connection conn = JDBConnect.getConnection();
-                Statement stmt = conn.createStatement();
+                Statement stmt = conn.createStatement()
         ) {
             System.out.println("Successfully connected to Database");
             String insertSQL = String.format(
