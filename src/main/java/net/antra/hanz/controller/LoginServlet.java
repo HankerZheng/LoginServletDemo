@@ -42,6 +42,7 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         System.out.println("Get in Login Servlet!");
+        req.getSession().setAttribute("invalidUser", false);
 
         req.getRequestDispatcher("/WEB-INF/login.jsp").forward(req, resp);
     }
